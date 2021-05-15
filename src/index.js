@@ -13,10 +13,11 @@ fs.writeFile(path.resolve(__dirname, "./public/index.html"), content, () => {
     app.use(express.static('src/public'))
 
     const server = app.listen(port, async () => {
+        const url = `http://localhost:${port}`
         const options = { format: 'A4', path: 'output.pdf' }
-        const file = { content }
+        const file = { url }
         await html_to_pdf.generatePdf(file, options)
 
-        //server.close()
+        server.close()
     })
 })
